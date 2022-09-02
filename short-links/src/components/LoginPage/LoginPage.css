@@ -1,0 +1,15 @@
+
+.mainAuth {
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.titleAuth {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#formAuth {
+    margin-top: 30px;
+}

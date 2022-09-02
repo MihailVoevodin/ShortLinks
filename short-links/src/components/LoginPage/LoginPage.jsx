@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Navigate } from "react-router-dom";
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { connect } from "react-redux";
-import { login } from "../redux/authReducer";
+import { login } from "../../redux/authReducer";
+import "./LoginPage.css"
 
 
 const LoginPage = (props) => {
@@ -13,35 +13,34 @@ const LoginPage = (props) => {
     };
 
     if (props.isAuth) {
-        return <Navigate to='/' />
+        debugger
+        return <Navigate to='/mainpage' />
     }
 
     return (
-        <div>
-            <div>Login</div>
+        <div className='mainAuth'>
+            <div className='titleAuth'>Login</div>
             <Form
                 name="normal_login"
-                className="login-form form"
+                id='formAuth'
+                className='login-form'
                 labelCol={{
-                    span: 4,
+                    span: 10,
                 }}
                 wrapperCol={{
-                    span: 8,
-                }}
-                initialValues={{
-                    remember: true,
+                    span: 4,
                 }}
                 onFinish={onFinish}
             >
-                <Form.Item label="Login" name="login" rules={[{ required: true, message: 'Please input valid email!', },]}>
-                    <Input prefix={<MailOutlined className="site-form-item-icon" />} />
+                <Form.Item label="Login" name="login" rules={[{ required: true, message: 'Please input login!', },]}>
+                    <Input />
                 </Form.Item>
 
                 <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!', },]}>
-                    <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} type="password" />
+                    <Input.Password type="password" />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 7 }}>
+                <Form.Item wrapperCol={{ offset: 0 }}>
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Login
                     </Button>

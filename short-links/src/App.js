@@ -1,19 +1,20 @@
+import React from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import MainPageContainer from "./components/MainPage/MainPageContainer";
+import LoginPage from "./components/LoginPage/LoginPage";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
 import './App.css';
-import {Routes, Route, BrowserRouter} from "react-router-dom";
-import MainPage from "./components/MainPage";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
 
 function App() {
-  return (
-      <BrowserRouter>
-          <Routes>
-              <Route exact path='/' element={<MainPage />}/>
-              <Route exact path='/login' element={<LoginPage />}/>
-              <Route exact path='/register' element={<RegisterPage />}/>
-          </Routes>
-      </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route exact path='/' element={<LoginPage />} />
+                <Route exact path='/mainpage' element={<MainPageContainer />} />
+                <Route exact path='/register' element={<RegisterPage />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

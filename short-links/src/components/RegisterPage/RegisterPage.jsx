@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Navigate } from "react-router-dom";
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { connect } from "react-redux";
-import { register } from "../redux/authReducer";
+import { register } from "../../redux/authReducer";
+import '../LoginPage/LoginPage.css'
 
 const RegisterPage = (props) => {
 
@@ -11,19 +11,20 @@ const RegisterPage = (props) => {
         props.register(data.login, data.password);
     };
     if (props.isRegister) {
-        return <Navigate to='/login' />
+        return <Navigate to='/' />
     }
     return (
-        <div>
-            <div>Register</div>
+        <div className='mainAuth'>
+            <div className='titleAuth'>Register</div>
             <Form
                 name="normal_login"
-                className="login-form form"
+                id='formAuth'
+                className="login-form"
                 labelCol={{
-                    span: 4,
+                    span: 10,
                 }}
                 wrapperCol={{
-                    span: 8,
+                    span: 4,
                 }}
                 initialValues={{
                     remember: true,
@@ -31,14 +32,14 @@ const RegisterPage = (props) => {
                 onFinish={onFinish}
             >
                 <Form.Item label="Login" name="login" rules={[{ required: true, message: 'Please input valid email!', },]}>
-                    <Input prefix={<MailOutlined className="site-form-item-icon" />} />
+                    <Input />
                 </Form.Item>
 
                 <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!', },]}>
-                    <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} type="password" />
+                    <Input.Password type="password" />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 7 }}>
+                <Form.Item wrapperCol={{ offset: 0 }}>
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Register
                     </Button>
@@ -46,7 +47,7 @@ const RegisterPage = (props) => {
             </Form>
             {props.isAlreadyExists && <div>User with this username is already exists</div>}
             <p>
-                Already have an account? <Link to='/login'>Sign in</Link>
+                Already have an account? <Link to='/'>Sign in</Link>
             </p>
         </div>
     );
