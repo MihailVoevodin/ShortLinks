@@ -1,8 +1,8 @@
 import './App.css';
 import {Routes, Route, BrowserRouter} from "react-router-dom";
-import {MainPage} from "./components/MainPage";
-import {LoginPage} from "./components/LoginPage";
-import {RegisterPage} from "./components/RegisterPage";
+import MainPage from "./components/MainPage";
+import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
 
 function App() {
   return (

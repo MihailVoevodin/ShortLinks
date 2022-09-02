@@ -1,22 +1,22 @@
 import * as axios from "axios";
 
-const instance = axios.create({
-    baseURL: 'http://79.143.31.216/',
-    withCredentials: true,
-    headers: {
-        'accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-})
-
-
 export const authAPI = {
 
     login(login, password) {
-        return instance.post(`login`, {login, password}).then(response => response.data)
+
+        return axios({
+            method: 'post',
+            url: 'http://79.143.31.216/login',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: `username=${login}&password=${password}`
+
+            }).then(response => response)
     },
 
     register(login, password) {
-        return instance.post(`register`, {login, password}).then(response => response.data)
+        return axios.post(`http://79.143.31.216/register?username=${login}&password=${password}`, { login, password })
+            .then(response => response)
     },
 }
