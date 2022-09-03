@@ -13,13 +13,12 @@ const LoginPage = (props) => {
     };
 
     if (props.isAuth) {
-        debugger
         return <Navigate to='/mainpage' />
     }
 
     return (
         <div className='mainAuth'>
-            <div className='titleAuth'>Login</div>
+            <div className='titleAuth'>Авторизация</div>
             <Form
                 name="normal_login"
                 id='formAuth'
@@ -32,23 +31,23 @@ const LoginPage = (props) => {
                 }}
                 onFinish={onFinish}
             >
-                <Form.Item label="Login" name="login" rules={[{ required: true, message: 'Please input login!', },]}>
+                <Form.Item label="Логин" name="login" rules={[{ required: true, message: 'Введите логин!', },]}>
                     <Input />
                 </Form.Item>
 
-                <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!', },]}>
+                <Form.Item label="Пароль" name="password" rules={[{ required: true, message: 'Введите пароль!', },]}>
                     <Input.Password type="password" />
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ offset: 0 }}>
                     <Button type="primary" htmlType="submit" className="login-form-button">
-                        Login
+                        Войти
                     </Button>
                 </Form.Item>
             </Form>
-            {props.isIncorrectLogin && <div>Incorrect Login or Password</div>}
+            {props.isIncorrectLogin && <div>Неправильный логин или пароль</div>}
             <p>
-                Or <Link to='/register'>Register</Link>
+                Нет аккаунта? <Link to='/register'>Зарегистрироваться</Link>
             </p>
         </div>
     );

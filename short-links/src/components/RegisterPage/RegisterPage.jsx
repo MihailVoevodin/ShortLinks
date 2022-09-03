@@ -15,7 +15,7 @@ const RegisterPage = (props) => {
     }
     return (
         <div className='mainAuth'>
-            <div className='titleAuth'>Register</div>
+            <div className='titleAuth'>Регистрация</div>
             <Form
                 name="normal_login"
                 id='formAuth'
@@ -31,23 +31,23 @@ const RegisterPage = (props) => {
                 }}
                 onFinish={onFinish}
             >
-                <Form.Item label="Login" name="login" rules={[{ required: true, message: 'Please input valid email!', },]}>
+                <Form.Item label="Логин" name="login" rules={[{ required: true, message: 'Введите логин!', },]}>
                     <Input />
                 </Form.Item>
 
-                <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!', },]}>
+                <Form.Item label="Пароль" name="password" rules={[{ required: true, message: 'Введите пароль!', },]}>
                     <Input.Password type="password" />
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ offset: 0 }}>
                     <Button type="primary" htmlType="submit" className="login-form-button">
-                        Register
+                        Зарегистрироваться
                     </Button>
                 </Form.Item>
             </Form>
-            {props.isAlreadyExists && <div>User with this username is already exists</div>}
+            {props.isAlreadyExists && <div>Пользователь с таким именем уже существует</div>}
             <p>
-                Already have an account? <Link to='/'>Sign in</Link>
+                Уже есть аккаунт? <Link to='/'>Войти</Link>
             </p>
         </div>
     );

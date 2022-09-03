@@ -12,6 +12,7 @@ let initialState = {
     isRegister: false,
     isAlreadyExists: false,
     isIncorrectLogin: false,
+    token: ''
 };
 
 const authReducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuth: action.isAuth,
+                token: action.token
             }
         case REGISTER: 
             return {
@@ -54,10 +56,11 @@ export const setUserName = (userName) => {
     }
 }
 
-export const isAuth = (isAuth) => {
+export const isAuth = (isAuth, token) => {
     return {
         type: LOGIN,
-        isAuth
+        isAuth,
+        token
     }
 }
 
@@ -87,7 +90,7 @@ export const register = (login, password) => {
             dispatch(setUserName(response.data.username))
             dispatch(isRegister(true))
         })
-        .catch (err => {
+        .catch (() => {
             dispatch(setIsAlreadyExists(true))
         })
     }
@@ -97,10 +100,10 @@ export const login = (login, password) => {
     return (dispatch) => {
         return authAPI.login(login, password).then(response => {
             localStorage.setItem('token', response.data.access_token)
-            dispatch(isAuth(true))
+            dispatch(isAuth(true, response.data.access_token))
             dispatch(incorrectLogin(false))
         })
-        .catch(err => {
+        .catch(() => {
             dispatch(incorrectLogin(true))
         })
     }

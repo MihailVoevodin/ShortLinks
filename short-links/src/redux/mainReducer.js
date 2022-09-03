@@ -2,6 +2,7 @@ import { mainAPI } from "../api/api";
 
 const SET_ITEM = 'SET_ITEM';
 const SET_LINKS = 'SET_LINKS';
+const SET_SORT_LINKS = 'SET_SORT_LINKS';
 
 let initialState = {
     links: []
@@ -19,6 +20,11 @@ const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 links: [...state.links, ...action.data]
+            }
+        case SET_SORT_LINKS: 
+            return {
+                ...state,
+                links: [...action.data]
             }
         default:
             return state;
@@ -39,9 +45,16 @@ export const setLinks = (data) => {
     }
 }
 
-export const getLinks = () => {
+export const setSortLinks = (data) => {
+    return {
+        type: SET_SORT_LINKS,
+        data
+    }
+}
+
+export const getLinks = (sort, offset) => {
     return (dispatch) => {
-        return mainAPI.getLinks().then(response => {
+        return mainAPI.getLinks(sort, offset).then(response => {
             dispatch(setLinks(response.data))
         })
         .catch (err => {
@@ -61,5 +74,17 @@ export const doNewItem = (link) => {
         })
     }
 }
+
+export const doSortLinks = (sort, link) => {
+    return (dispatch) => {
+        return mainAPI.getLinks(sort, link).then(response => {
+            console.log(response.data)
+            dispatch(setSortLinks(response.data))
+        })
+        .catch (err => {
+            console.log(err)
+        })
+    }
+} 
 
 export default mainReducer;

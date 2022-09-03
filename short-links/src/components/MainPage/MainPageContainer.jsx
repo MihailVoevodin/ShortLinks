@@ -1,30 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { doNewItem, getLinks } from '../../redux/mainReducer';
+import { doNewItem, getLinks, doSortLinks } from '../../redux/mainReducer';
 import { Navigate } from "react-router-dom";
 import MainPage from "./MainPage";
+import './MainPage.css'
+import { Button } from "antd";
 
-class MainPageContainer extends React.Component {
+const MainPageContainer = ({ getLinks, isAuth, login, doNewItem, links, doSortLinks, token }) => {
+    const [offset, setOffset] = useState(0)
+    const [sort, setSort] = useState('desc_counter')
 
-    componentDidMount() {
-        this.props.getLinks()
+    useEffect(() => {
+        if (offset === 0 && token) {
+            getLinks(sort, offset)
+        }
+    }, [])
+
+    const onLoadItems = () => {
+        setOffset(offset + 5)
+        getLinks(sort, offset + 5)
     }
 
-    render() {
-        return (
-            <>
-                {!this.props.isAuth ? <Navigate to='/' /> : <MainPage isAuth={this.props.isAuth}
-                    login={this.props.login} doNewItem={this.props.doNewItem}/>
-                }
-                <table>
-                    <tr><th>Short link</th><th>Target link</th><th>Counter</th></tr>
-                    {this.props.links.map(item => <tr key={item.id}><th>{item.short}</th><th>{item.target}</th><th>{item.counter}</th></tr>)}
-                </table>
-                
-
-            </>
-        )
+    const onClickSort = (id) => {
+        setOffset(0)
+        setSort(id);
+        doSortLinks(id, 0)
     }
+
+    if (!isAuth) {
+        localStorage.setItem('token', '')
+        return <Navigate to='/' />
+    }
+
+    return (
+        <>
+            {localStorage.getItem('token') === token && <MainPage login={login}
+                doNewItem={doNewItem}
+                links={links}
+                onClickSortChange={(id) => onClickSort(id)}
+                sort={sort} />
+            }
+            <Button type='primary' id='moreBtn' onClick={onLoadItems}>Загрузить</Button>
+        </>
+    )
 };
 
 const mapStateToProps = (state) => {
@@ -32,7 +50,8 @@ const mapStateToProps = (state) => {
         isAuth: state.auth.isAuth,
         login: state.auth.login,
         links: state.main.links,
+        token: state.auth.token,
     }
 };
 
-export default connect(mapStateToProps, { doNewItem, getLinks })(MainPageContainer);
+export default connect(mapStateToProps, { doNewItem, getLinks, doSortLinks })(MainPageContainer);

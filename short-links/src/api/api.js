@@ -1,8 +1,6 @@
 import * as axios from "axios";
 
 let token = localStorage.getItem('token');
-let offset = 0;
-console.log(token)
 
 export const authAPI = {
 
@@ -37,10 +35,10 @@ export const mainAPI = {
             }).then(response => response)
     },
 
-    getLinks() {
+    getLinks(sort, offset) {
         return axios({
             method: 'get',
-            url: `http://79.143.31.216/statistics?order=asc_short&offset=${offset}&limit=5`,
+            url: `http://79.143.31.216/statistics?order=${sort}&offset=${offset}&limit=5`,
             headers: {
                 'accept': 'application/json',
                 'Authorization': 'Bearer ' + token
